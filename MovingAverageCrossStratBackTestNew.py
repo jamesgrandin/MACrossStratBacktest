@@ -152,7 +152,7 @@ portfoliodata.portfolio['net_liquid'].plot(ax=ax2, lw=0.6)
 ax2.plot(portfoliodata.portfolio.loc[pricedata.signals.positions == 1.0].index, portfoliodata.portfolio.net_liquid[pricedata.signals.positions == 1.0], '^', markersize=5, color='g')
 ax2.plot(portfoliodata.portfolio.loc[pricedata.signals.positions == -1.0].index, portfoliodata.portfolio.net_liquid[pricedata.signals.positions == -1.0], 'v', markersize=5, color='r')
 
-plt.show()
+
 
 
 ###basic anaylsis on portfolio returns over the test time frame
@@ -173,7 +173,9 @@ rolling_drawdown = pricedata.price_df['4. close']/rolling_max - 1.0
 max_drawdown = rolling_drawdown.rolling(window, min_periods=1).min()
 
 
-rolling_drawdown.plot(label="Rolling Drawdown")
-max_drawdown.plot(label="Max Drawdown")
-plt.legend()
+fig3 = plt.figure(3)
+ax3 = fig3.add_subplot(111, ylabel = '% Drawdown', title="Portfolio Drawdown")
+rolling_drawdown.plot(ax=ax3,label="Rolling Drawdown")
+max_drawdown.plot(ax=ax3, label="Max Drawdown")
+ax3.legend()
 plt.show()
