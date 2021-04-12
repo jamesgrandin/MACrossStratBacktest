@@ -9,7 +9,7 @@ api_key = "5C0UONZ0TJ3FKCHZ"
 
 class PriceData:
     #needs, Ticker symbol, Date/Time Range(startdatetime and enddatetime), and resolution (time interval for price (1min, 5min etc))
-
+    #gets price of ticker in pandas dataframe over specificed time frame
     def __init__(self, api_key, ticker, startdatetime, enddatetime, resolution):
         self.api_key = api_key
         self.ticker = ticker
@@ -30,15 +30,16 @@ class PriceData:
 class MACrossStrat(PriceData):
 
     def __init__(self, api_key, ticker, startdatetime, enddatetime, resolution, longSMA, shortSMA, EMA):
-        self.longSMA = longSMA
-        self.shortSMA= shortSMA
-        self.EMA = EMA
+        self.longSMA = longSMA #choose longterm moving average period
+        self.shortSMA= shortSMA #choose shortterm moving average period
+        self.EMA = EMA #choose EMA period
         PriceData.__init__(self, api_key, ticker, startdatetime, enddatetime, resolution)
 
     def get_MAs(self):
         ti = TechIndicators(key=api_key, output_format='pandas')  # getting technical indicator and setting output to pandas dataframe
 
         #will be using 200SMA, 50SMA, and 10EMA for buy and sell signals
+        #gets moving averages in pandas dataframe
 
         longSMAdata, longSMAmetadata = ti.get_sma(symbol=ticker, interval=resolution, time_period=self.longSMA)
         longSMAdatasubset = longSMAdata[startdatetime:enddatetime]
@@ -75,8 +76,8 @@ class PortfolioValue:
     def __init__(self,shares,initial_capital, price_df, signals):
         self.price_df = price_df
         self.signals = signals
-        self.shares = shares
-        self.initial_capital = initial_capital
+        self.shares = shares #choose how many shares you want to buy and sell at each signal
+        self.initial_capital = initial_capital #choose starting
 
     def positions(self):
 
