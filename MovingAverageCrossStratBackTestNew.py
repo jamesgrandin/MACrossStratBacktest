@@ -95,7 +95,7 @@ class PortfolioValue:
         # Value of currently held position
         self.portfolio['holdings'] = (self.positions.multiply(self.price_df['4. close'], axis=0)).sum(axis=1)
 
-        # creating column showing cash available for trading
+        # Current cash available for trading
         self.portfolio['cash'] = self.initial_capital - (self.pos_diff.multiply(self.price_df['4. close'], axis=0)).sum(
             axis=1).cumsum()
 
@@ -167,7 +167,7 @@ window = len(pricedata.price_df.index)
 rolling_max = pricedata.price_df['4. close'].rolling(window, min_periods=1).max()
 rolling_drawdown = pricedata.price_df['4. close']/rolling_max - 1.0
 
-# Calculate the maximum daily drawdown
+# Calculate the maximum drawdown over test time frame
 max_drawdown = rolling_drawdown.rolling(window, min_periods=1).min()
 
 
