@@ -60,7 +60,7 @@ class MACrossStrat(PriceData):
 
         #create buy and sell signals based off of moving average crossover.
         #generates BUY signal when 10 EMA crosses 50SMA while above 200 SMA, SELL when crossing back below 50SMA
-        #Also generates BUY signal when 10 EMA crosses above 200 SMA, signifying the the stock has strong momentum, SELL if 10EMA crosss below 200SMA or 50SMA
+        #Also generates BUY signal when 10 EMA crosses above 200 SMA, signifying the stock currently has strong momentum, SELL if 10EMA crosss below 200SMA or 50SMA
 
         self.signals["signals"] = np.where((self.moving_average_df['EMA'][::] > self.moving_average_df['shortSMA']) & (self.moving_average_df['longSMA'][::] < self.moving_average_df['EMA'][::]), 1.0,0.0)
 
@@ -77,9 +77,10 @@ class PortfolioValue:
         self.price_df = price_df
         self.signals = signals
         self.shares = shares #choose how many shares you want to buy and sell at each signal
-        self.initial_capital = initial_capital #choose starting
+        self.initial_capital = initial_capital #choose starting capital for portfolio
 
     def positions(self):
+        #generates dataframe of shares currently being held in portfolio
 
         self.positions = pd.DataFrame(index=self.price_df.index).fillna(0.0)
 
@@ -147,14 +148,14 @@ ax1.plot(pricedata.signals.loc[pricedata.signals['positions'] == -1.0].index, pr
 fig2=plt.figure(2)
 ax2 = fig2.add_subplot(111, ylabel = "Net Liquid", title ="Total Portfolio Value")
 portfoliodata.portfolio['net_liquid'].plot(ax=ax2, lw=0.6)
-#overlays the buy and sell signals on equity curve
+#overlay buy/sell signals on equity curve
 ax2.plot(portfoliodata.portfolio.loc[pricedata.signals.positions == 1.0].index, portfoliodata.portfolio.net_liquid[pricedata.signals.positions == 1.0], '^', markersize=5, color='g')
 ax2.plot(portfoliodata.portfolio.loc[pricedata.signals.positions == -1.0].index, portfoliodata.portfolio.net_liquid[pricedata.signals.positions == -1.0], 'v', markersize=5, color='r')
 
 plt.show()
 
 
-###Do some basic anaylsis on portfolio returns over the test time frame
+###basic anaylsis on portfolio returns over the test time frame
 
 returns = portfoliodata.portfolio['percent_change']
 
