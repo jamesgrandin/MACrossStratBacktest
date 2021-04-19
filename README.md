@@ -1,7 +1,7 @@
 # MACrossStratBacktest
 This program back tests a moving average cross over strategy
 
-Assumption: A cross over of a short term moving average above a longer term moving average indicates an change in momentum to the upside. 
+Assumption: A cross over of a short term moving average above a longer term moving average indicates a change in momentum to the upside. 
 This cross over can provide an early warning sign that the trend direction has shifted from downward to upward. If this is true, a profitable trading
 signal can be generated when this the corssover event occurs.
 
