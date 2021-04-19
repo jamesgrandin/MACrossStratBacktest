@@ -10,4 +10,9 @@ simple moving average (SMA) and a SELL condition when it crosses back below. Thi
 filter out trade signals when the market is showing signs of weakness. The system also triggers a BUY when the 10 EMA crosses above the 200 SMA, signifying a 
 change in momentum to the upside, and generates a SELL signal when the 10EMA crosses back below either the 50 SMA or the 200 SMA, whichever comes first.
 
+Price Data Class: This pulls that pricing data over a specified date time range with a specified resolution for a specified ticker and converts it to a 
+pandas dataframe for manipulation. This data can be used in multiple strategies.
 
+MACrossStrat Class: This class inherents the attributes of the price data class. It produces trade signals based on moving average cross over conditions.
+
+PortfolioValue Class: This class enters postions based on price signals and simulates the portfolio value over the life of the position.
